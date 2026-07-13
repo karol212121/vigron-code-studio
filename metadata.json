@@ -1,0 +1,6 @@
+{
+  "name": "Vigron Code Studio",
+  "description": "Mobil qurilmalar uchun to'liq funksional kod muharriri, terminal va Gemini AI yordamchisi. Har qanday dasturlash tilida kod yozish va real terminalga ega bo'lish imkoniyati.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

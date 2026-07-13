@@ -1,0 +1,35 @@
+{
+  "entities": {
+    "chat_history": {
+      "title": "Chat History",
+      "description": "Stores user chat messages for the Gemini assistant per project.",
+      "type": "object",
+      "properties": {
+        "userEmail": {
+          "type": "string",
+          "description": "The email of the user who owns this chat history."
+        },
+        "projectName": {
+          "type": "string",
+          "description": "The name of the project this chat history belongs to."
+        },
+        "messages": {
+          "type": "array",
+          "description": "List of chat messages in this session."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the chat history was last updated."
+        }
+      },
+      "required": ["userEmail", "projectName", "messages", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "chat_histories/{historyId}": {
+      "schema": "chat_history",
+      "description": "Collection of chat histories indexed by userEmail_projectName"
+    }
+  }
+}

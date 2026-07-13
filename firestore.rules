@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default Catch-All Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Chat histories collection
+    match /chat_histories/{historyId} {
+      allow get, delete: if isSignedIn() && (
+        resource == null || resource.data.userEmail.lower() == request.auth.token.email.lower()
+      );
+      
+      allow list: if isSignedIn() && resource.data.userEmail.lower() == request.auth.token.email.lower();
+
+      allow create, update: if isSignedIn() && 
+        request.resource.data.userEmail.lower() == request.auth.token.email.lower() &&
+        request.resource.data.userEmail is string &&
+        request.resource.data.projectName is string &&
+        request.resource.data.messages is list;
+    }
+  }
+}
